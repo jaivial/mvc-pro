@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useRouter } from 'next/router';
 import Select from 'react-select';
+import DynamicPDFDownloadLink from '../components/DynamicPDFDownloadLink';
+import DynamicPDFViewer from '../components/DynamicPDFViewer';
+import { PDFViewer } from '@react-pdf/renderer';
+import MealPDF from '../components/MealPDF';
 import '../app/globals.css';
 import Image from 'next/image';
 import { AiOutlineHome, AiOutlineLogout } from 'react-icons/ai';
@@ -72,7 +76,7 @@ export default function Diet() {
                     onClick={() => router.push('/home')}
                 />
             </nav>
-            <div className="container mx-auto pb-52">
+            <div className="container mx-auto pb-32">
                 {sections.map((section) => (
                     <div key={section.type} className="flex flex-col items-center justify-center mb-10">
                         <h2 className="text-2xl font-bold mb-4">{section.name}</h2>
@@ -87,7 +91,7 @@ export default function Diet() {
                         {selectedMeals[section.type] && (
                             <div className="relative group mt-8 w-[90%]">
                                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-pink-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-800 group-hover:duration-200 animate-tilt"></div>
-                                <div className="relative px-7 py-4 pb-8 bg-black rounded-lg leading-none flex flex-col items-center space-x-4">
+                                <div className="relative px-7 py-4 bg-black rounded-lg leading-none flex flex-col items-center space-x-4">
                                     <div className="flex flex-col justify-center items-center">
                                         <p className="text-lg">{selectedMeals[section.type].descripcion}</p>
                                         <div className="min-w-28 h-px bg-white mx-4 mt-4"></div>
@@ -107,6 +111,15 @@ export default function Diet() {
                         )}
                     </div>
                 ))}
+                <div className="flex justify-center mt-10">
+                    <DynamicPDFDownloadLink
+                        document={<MealPDF selectedMeals={selectedMeals} />}
+                        fileName="meal_plan.pdf"
+                        className="px-6 py-3 bg-slate-50 rounded-lg text-black"
+                    >
+                        {({ loading }) => (loading ? 'Generando PDF...' : 'Descargar PDF')}
+                    </DynamicPDFDownloadLink>
+                </div>
             </div>
             <nav className="fixed bottom-0 left-0 right-0 bg-gray-900 p-4 flex justify-around items-center">
                 <button onClick={() => router.push('/home')} className="text-white text-2xl">
