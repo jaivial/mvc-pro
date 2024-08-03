@@ -60,8 +60,7 @@ export default function Diet() {
         { type: 2, name: 'Almuerzo' },
         { type: 3, name: 'Comida' },
         { type: 4, name: 'Merienda' },
-        { type: 5, name: 'Cena' },
-        { type: 6, name: 'Snack' }
+        { type: 5, name: 'Cena' }
     ];
 
     return (
