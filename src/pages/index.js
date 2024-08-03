@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { supabase } from '../lib/supabase';
 import 'tailwindcss/tailwind.css';
-import '../styles/globals.css';
+import '../app/globals.css';
 
 export default function Home() {
     const router = useRouter();

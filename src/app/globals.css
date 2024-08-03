@@ -15,3 +15,81 @@
   padding-bottom: var(--safe-area-inset-bottom);
   padding-left: var(--safe-area-inset-left);
 }
+
+
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(200px);
+  }
+  to {
+      display: visible;
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 1.5s ease-in-out 2.5s forwards;
+}
+.animate-fadeInUp2 {
+  animation: fadeInUp 1.5s ease-in-out 3s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 3s ease-in-out forwards;
+}
+
+
+@keyframes moveUp {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+      transform: translateY(-300px);
+  }
+  
+}
+
+.animate-moveUp {
+  animation: moveUp 2s ease-in-out forwards;
+  animation-delay: 1.9s;
+}
+
+.animate-combined {
+  animation: fadeIn 3s ease-in-out forwards, moveUp 1.5s ease-in-out 2s forwards;
+}
+
+
+
+/* Add custom styles for React Select component */
+.css-2b097c-container {
+    width: 90%;
+}
+
+.css-yk16xz-control {
+    background-color: white;
+    color: black;
+}
+
+.css-1pahdxg-control {
+    background-color: white;
+    color: black;
+}
+
+.css-1okebmr-indicatorSeparator {
+    display: none;
+}
+
+.glow-effect {
+  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+}
