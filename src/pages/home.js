@@ -38,7 +38,7 @@ export default function Home() {
 
     return (
         <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center h-dvh relative">
-            <div className="logosectionCotainer flex flex-col items-center justify-center absolute top-70 left-0 right-0 animate-combined z-10">
+            <div className="logosectionCotainer flex flex-col items-center justify-center absolute top-56 left-0 right-0 animate-combined z-10">
                 <Image src="/mvc-pro_logo.png" alt="mvc-pro logo" width={200} height={200} />
             </div>
             <div className="container mx-auto py-20">
