@@ -1,11 +1,12 @@
-// pages/login.js
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { useRouter } from 'next/navigation';
 import '../app/globals.css';
 import Image from 'next/image';
 import Toastify from 'toastify-js';
-import "toastify-js/src/toastify.css"
+import "toastify-js/src/toastify.css";
+import Cookies from 'js-cookie';
+import { v4 as uuidv4 } from 'uuid';
 
 const showToast = (message, backgroundColor, textColor) => {
     Toastify({
@@ -23,7 +24,6 @@ const showToast = (message, backgroundColor, textColor) => {
     }).showToast();
 };
 
-
 export default function Login() {
     const router = useRouter();
     const [email, setEmail] = useState('');
@@ -32,7 +32,8 @@ export default function Login() {
 
     const handleEmailLogin = async (e) => {
         e.preventDefault();
-        // Check if the email and password match any existing user
+
+        // Check if the user exists
         let { data: users, error: selectError } = await supabase
             .from('users')
             .select('*')
@@ -44,30 +45,36 @@ export default function Login() {
             return;
         }
 
-        if (users.length > 0) {
-            // User found with matching email and password
-            showToast('Usuario ya registrado', 'linear-gradient(to right, #DFE6E3, #DADADA)', '#000');
-        } else {
-            // No matching user, insert new user
-            let { error: insertError } = await supabase
-                .from('users')
-                .insert([{ email, password, userType: 2 }]);
-            localStorage.setItem('toastMessage', JSON.stringify({
-                message: 'Sesión iniciada',
-                style: 'linear-gradient(to right, #DFE6E3, #DADADA)',
-                color: '#000'
-            }));
-
-            if (insertError) {
-                setError(insertError.message);
-            } else {
-                router.push('/home');
-            }
+        if (users.length === 0) {
+            showToast('Usuario no encontrado', 'linear-gradient(to right, #DFE6E3, #DADADA)', '#000');
+            return;
         }
+        // Generate a unique session ID
+        const sessionID = uuidv4();
+        Cookies.set('sessionID', sessionID);
+        Cookies.set('userID', users[0].id);
+
+        // Insert into active_sessions
+        let { data: session, error: insertError } = await supabase
+            .from('active_sessions')
+            .insert([{ email: email, password: password, sessionID: sessionID, userID: users[0].id }]);
+
+        if (insertError) {
+            setError(insertError.message);
+            return;
+        }
+        // User found, log in
+        localStorage.setItem('toastMessage', JSON.stringify({
+            message: 'Sesión iniciada',
+            style: 'linear-gradient(to right, #DFE6E3, #DADADA)',
+            color: '#000'
+        }));
+
+        router.push('/home');
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-950 text-white h-dvh">
+        <div className="flex items-center justify-center min-h-screen bg-black text-white h-dvh">
             <div className="w-full max-w-md p-8 space-y-1 flex flex-col items-center justify-center -mt-20">
                 <Image src="/mvc-pro_logo.png" alt="mvc-pro logo" width={200} height={200} />
                 {error && <p className="text-red-500">{error}</p>}

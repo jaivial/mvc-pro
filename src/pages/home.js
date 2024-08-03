@@ -37,7 +37,7 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center h-dvh relative">
+        <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center h-dvh relative">
             <div className="logosectionCotainer flex flex-col items-center justify-center absolute top-70 left-0 right-0 animate-combined z-10">
                 <Image src="/mvc-pro_logo.png" alt="mvc-pro logo" width={200} height={200} />
             </div>
@@ -57,7 +57,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <nav className="fixed bottom-0 left-0 right-0 bg-gray-900 p-4 flex justify-around items-center">
+            <nav className="fixed bottom-0 left-0 right-0 bg-gray-800 p-4 flex justify-around items-center">
                 <button onClick={() => router.push('/home')} className="text-white text-2xl">
                     <AiOutlineHome />
                 </button>

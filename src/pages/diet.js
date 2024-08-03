@@ -65,7 +65,7 @@ export default function Diet() {
     ];
 
     return (
-        <div className="min-h-screen bg-gray-950 text-white">
+        <div className="min-h-screen bg-black text-white">
             <nav className="flex justify-center items-center bg-black py-4">
                 <Image
                     src="/mvc-pro_logo.png"
@@ -85,12 +85,12 @@ export default function Diet() {
                             onChange={(option) => handleSelectChange(option, section)}
                             isClearable
                             placeholder={`Seleccionar ${section.name}`}
-                            className="text-black w-[90%]"
+                            className="text-black w-[86%]"
                             onMenuOpen={() => setMealType(section.type)}
                         />
                         {selectedMeals[section.type] && (
-                            <div className="relative group mt-8 w-[90%]">
-                                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-pink-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-800 group-hover:duration-200 animate-tilt"></div>
+                            <div className="relative group mt-9 w-[86%]">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-pink-600 rounded-lg blur opacity-75"></div>
                                 <div className="relative px-7 py-4 bg-black rounded-lg leading-none flex flex-col items-center space-x-4">
                                     <div className="flex flex-col justify-center items-center">
                                         <p className="text-lg">{selectedMeals[section.type].descripcion}</p>

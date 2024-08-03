@@ -17,7 +17,7 @@ export default function Home() {
             if (userID && sessionID) {
                 // Function to check if the user exists in Supabase with the 'mvc-pro' schema
                 const { data, error } = await supabase
-                    .from('users') // Adjust the table name according to your schema
+                    .from('active_sessions') // Adjust the table name according to your schema
                     .select('id')
                     .eq('userID', userID)
                     .eq('sessionID', sessionID)
