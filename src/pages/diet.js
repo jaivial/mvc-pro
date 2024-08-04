@@ -31,6 +31,7 @@ export default function Diet() {
             .from('diet')
             .select('*')
             .eq('tipocomida', type);
+        console.log(data);
         if (error) {
             console.error(error);
         } else {
@@ -90,18 +91,23 @@ export default function Diet() {
                         {selectedMeals[section.type] && (
                             <div className="relative group mt-9 w-[86%]">
                                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-pink-600 rounded-lg blur opacity-75"></div>
-                                <div className="relative px-7 py-4 bg-black rounded-lg leading-none flex flex-col items-center space-x-4">
+                                <div className="relative px-7 py-3 bg-black rounded-lg leading-none flex flex-col items-center space-x-4">
                                     <div className="flex flex-col justify-center items-center">
-                                        <p className="text-lg">{selectedMeals[section.type].descripcion}</p>
+                                        <div>
+                                            {selectedMeals[section.type].descripcion.map((item, index) => (
+
+                                                <p key={index} className="text-base text-start pt-3">{item}</p>
+                                            ))}
+                                        </div>
                                         <div className="min-w-28 h-px bg-white mx-4 mt-4"></div>
                                         <div className="flex flex-row items-center justify-center gap-6 mt-4">
                                             <div className="flex flex-col items-left justify-center gap-4">
-                                                <p className="text-left">Hidratos: {selectedMeals[section.type].hidratos} g</p>
-                                                <p className="text-left">Proteinas: {selectedMeals[section.type].proteinas} g</p>
-                                                <p className="text-left">Grasas: {selectedMeals[section.type].grasas} g</p>
+                                                <p className="text-left text-base">Hidratos: {selectedMeals[section.type].hidratos} g</p>
+                                                <p className="text-left text-base">Proteinas: {selectedMeals[section.type].proteinas} g</p>
+                                                <p className="text-left text-base">Grasas: {selectedMeals[section.type].grasas} g</p>
                                             </div>
                                             <div>
-                                                <p className="text-left">Calorias: {selectedMeals[section.type].calorias} kcal</p>
+                                                <p className="text-left text-base">Calorias: {selectedMeals[section.type].calorias} kcal</p>
                                             </div>
                                         </div>
                                     </div>

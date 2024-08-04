@@ -6,6 +6,8 @@ const styles = StyleSheet.create({
     page: {
         padding: 0,
         backgroundColor: 'black',
+        paddingBottom: 40,
+        paddingTop: 70,
     },
     logo: {
         width: 150,
@@ -21,6 +23,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: -80,
     },
     section: {
         width: '100%',
@@ -37,6 +40,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginBottom: 5,
         color: 'white',
+        lineHeight: 1.6,
     },
     text: {
         fontSize: 12,
@@ -138,7 +142,9 @@ const MealPDF = ({ selectedMeals }) => {
                                 <Text style={styles.textTitle}>{getMealName(meal.tipocomida)}</Text>
                             </View>
                             <View>
-                                <Text style={styles.mealTitle}>{meal.descripcion}</Text>
+                                {meal.descripcion.map((item, itemIndex) => (
+                                    <Text key={itemIndex} style={styles.mealTitle}>{item}</Text>
+                                ))}
                             </View>
                             <View style={styles.nutritionContainer}>
                                 <View style={styles.macrosContainer}>
