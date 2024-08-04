@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useRouter } from 'next/navigation';
 import '../app/globals.css';
@@ -29,6 +29,17 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        const toastMessage = localStorage.getItem('toastMessage');
+        if (toastMessage) {
+            const { message, style, color } = JSON.parse(toastMessage);
+            // Display the toast message
+            showToast(message, style, color);
+            // Remove the message from localStorage
+            localStorage.removeItem('toastMessage');
+        }
+    }, []);
 
     const handleEmailLogin = async (e) => {
         e.preventDefault();

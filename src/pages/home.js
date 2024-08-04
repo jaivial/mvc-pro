@@ -5,15 +5,49 @@ import Image from 'next/image';
 import { supabase } from '../lib/supabase';
 import { AiOutlineHome, AiOutlineLogout } from 'react-icons/ai';
 import { GiMeal, GiWeightLiftingUp } from 'react-icons/gi';
+import Toastify from 'toastify-js';
+import "toastify-js/src/toastify.css";
+import Cookies from 'js-cookie';
+
+const showToast = (message, backgroundColor, textColor) => {
+    Toastify({
+        text: message,
+        duration: 2500,
+        gravity: 'top',
+        position: 'center',
+        stopOnFocus: true,
+        style: {
+            borderRadius: '10px',
+            backgroundImage: backgroundColor,
+            textAlign: 'center',
+            color: textColor,
+        },
+    }).showToast();
+};
+
 
 export default function Home() {
     const router = useRouter();
 
     const handleLogout = async () => {
-        let { error } = await supabase.auth.signOut();
+        let userID = Cookies.get('userID');
+        let sessionID = Cookies.get('sessionID');
+        console.log(userID, sessionID);
+        let { error } = await supabase
+            .from('active_sessions')
+            .delete()
+            .eq('userID', userID)
+            .eq('sessionID', sessionID);
         if (error) {
             console.log("Error logging out:", error.message);
         } else {
+            localStorage.setItem('toastMessage', JSON.stringify({
+                message: 'Sesión cerrada',
+                style: 'linear-gradient(to right, #DFE6E3, #DADADA)',
+                color: '#000'
+            }));
+            Cookies.remove('sessionID');
+            Cookies.remove('userID');
             router.push('/login');
         }
     };
@@ -27,6 +61,17 @@ export default function Home() {
             }
         });
     };
+
+    useEffect(() => {
+        const toastMessage = localStorage.getItem('toastMessage');
+        if (toastMessage) {
+            const { message, style, color } = JSON.parse(toastMessage);
+            // Display the toast message
+            showToast(message, style, color);
+            // Remove the message from localStorage
+            localStorage.removeItem('toastMessage');
+        }
+    }, []);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
