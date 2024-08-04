@@ -122,7 +122,7 @@ export default function Login() {
                         type="submit"
                         className="w-full px-4 py-2 font-bold text-black bg-white rounded-lg hover:bg-gray-300"
                     >
-                        Login with Email
+                        Iniciar Sesión
                     </button>
                 </form>
             </div>
