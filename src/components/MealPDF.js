@@ -135,6 +135,8 @@ const MealPDF = ({ selectedMeals }) => {
                     <Image src="/mvc-pro_logo.png" style={styles.logo} />
                 </View>
                 <Text style={styles.title}>DIETA PERSONALIZADA</Text>
+                <Text style={styles.title}>Beber Agua: 3 litos por día mínimo</Text>
+
                 {Object.values(selectedMeals).map((meal, index) => (
                     meal && (
                         <View key={index} style={styles.section}>
