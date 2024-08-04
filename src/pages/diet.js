@@ -50,11 +50,23 @@ export default function Diet() {
         }));
     };
 
-    const mealOptions = diets.map(diet => ({
-        value: diet.id,
-        label: diet.descripcion,
-        ...diet
-    }));
+    const generateMealOptions = (diets) => {
+        const groupedOptions = diets.reduce((acc, diet) => {
+            acc[diet.tipocomida] = acc[diet.tipocomida] || [];
+            acc[diet.tipocomida].push(diet);
+            return acc;
+        }, {});
+
+        return Object.keys(groupedOptions).flatMap(tipocomida => {
+            return groupedOptions[tipocomida].map((diet, index) => ({
+                value: diet.id,
+                label: `Opción ${index + 1}`,
+                ...diet
+            }));
+        });
+    };
+
+    const mealOptions = generateMealOptions(diets);
 
     const sections = [
         { type: 1, name: 'Desayuno' },
@@ -95,7 +107,6 @@ export default function Diet() {
                                     <div className="flex flex-col justify-center items-center">
                                         <div>
                                             {selectedMeals[section.type].descripcion.map((item, index) => (
-
                                                 <p key={index} className="text-base text-start pt-3">{item}</p>
                                             ))}
                                         </div>
